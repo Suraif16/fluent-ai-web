@@ -30,8 +30,8 @@ app.listen(5000, () => {
 });
 
 app.post('/register', (req, res) => {
-    const { name, email, password } = req.body;
-    db.query(`INSERT INTO users (name, email, password) VALUES ('${name}', '${email}', '${password}')`, (err, result) => {
+    const { name, email, contact_no, slmc_no, password } = req.body;
+    db.query(`INSERT INTO users (name, email, contact_no, slmc_no, password) VALUES ('${name}', '${email}', '${contact_no}' , '${slmc_no}'  , '${password}')`, (err, result) => {
         if (err) {
             console.log('Error registering user:', err);
             res.status(500).send({ error: 'Error registering user' });
@@ -59,3 +59,5 @@ app.post('/login', (req, res) => {
         }
     });
 });
+
+
