@@ -60,4 +60,17 @@ app.post('/login', (req, res) => {
     });
 });
 
+app.post('/viewPatients', (req, res) => {
+    const { patient_id, name, age, contact_no, doctor_id} = req.body;
+    db.query('SELECT * FROM patients WHERE doctor_id = '${doctor_id}, (err, result) => {
+        if (err) {
+            console.log('Error viewing patients:', err);
+            res.status(500).send({ error: 'Error viewing patients' });
+        } else {
+            console.log('Patients viewed successfully');
+            res.status(200).send({ message: 'Patients viewed successfully' });
+        }
+    });
+});
+
 
