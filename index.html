@@ -1,0 +1,130 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../../../resources/images/logo_NTSF.png" type="image/x-icon">
+    <link rel="stylesheet" href="/user-interface.css">
+    <link rel="stylesheet" href="/table.css">
+    <link rel="stylesheet" href="https://kit.fontawesome.com/251590f28b.css" crossorigin="anonymous">
+    <link rel="stylesheet"
+		  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+          <title>Firestore Example</title>
+    <script src="https://kit.fontawesome.com/251590f28b.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="side-bar">
+        <div class="side-bar-logo">
+            <div class="logo-container">
+                <img src="/logo.png" alt="NTSF logo" class="ntsflogo">
+            </div>
+            <button class="dashboard-button">Dashboard</button>
+        </div>
+        <div class="side-bar-list">
+
+            <div class="menu">
+                <a href="" style="color: #1e1f9d;">
+                    <i class="fa-solid fa-hospital-user" style="color: #1e1f9d;"></i>
+                    Patients
+                </a>
+                <a href="">
+                    <i class="fa-regular fa-calendar-days" style="color: #1e1f9d;"></i>
+                    Calender
+                </a>
+                <a href="">
+                    <i class="fa-solid fa-gear"  style="color: #1e1f9d;"></i>
+                    Settings
+                </a>
+                <a href="">
+                    <i class="fa-solid fa-right-from-bracket" style="color: #1e1f9d"></i>
+                    Logout
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Dashboard heading -->
+    <div class="dashboard-heading">
+        <div class="panel">
+            <p class="user-name" id="user_name"> Dr. Sampath Gunawardhana</p>
+        </div>
+    <!-- Dashbboard cards -->
+        <div class="all">
+            <a href="" class="buttonSection">
+            </a>
+            <div class="container">
+                <h1>Patient Information</h1>
+                <div class="tableSection">
+                    <br>
+                    <table class="rwd-table" id="users-table" >
+                        <tbody>
+                          <div class="tableheading">
+                            <thead style="color: white; background-color: 14abfa;" >
+                              <th>Anonymous ID</th>
+                              <th>Date of Birth</th>
+                              <th>Email Address</th>
+                              <th></th>
+                            </thead>
+                          </div>
+                          <div id="policemanData"></div>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+
+    <script>
+      // Initialize Firebase
+      var firebaseConfig = {
+        apiKey: "AIzaSyDbx_Fqtuxc3NWw2Y4Bmg7zYZ6WvkeojSU",
+  authDomain: "fluentai.firebaseapp.com",
+  projectId: "fluentai",
+  storageBucket: "fluentai.appspot.com",
+  messagingSenderId: "122827492519",
+  appId: "1:122827492519:web:d74b5cdd3e174bed8fdf82"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+
+      // Initialize Firestore
+      var db = firebase.firestore();
+
+      // Retrieve data from Firestore and display it in a table
+      db.collection("Users").get().then((querySnapshot) => {
+
+        var table = document.querySelector("#users-table tbody");
+        querySnapshot.forEach((doc) => {
+            id = doc.id;
+            name = doc.data().quiz[0];
+            age = doc.data().email;
+            // Create a new row in the table
+            var dataRow = table.insertRow();
+            var dataCell1 = dataRow.insertCell(0);
+            var dataCell2 = dataRow.insertCell(1);
+            var dataCell3 = dataRow.insertCell(2);
+            var dataCell4 = dataRow.insertCell(3);
+
+            //Add content to the cells
+            dataCell1.innerHTML = id;
+            dataCell2.innerHTML = name;
+            dataCell3.innerHTML = age;
+            dataCell4.innerHTML = "<button type='button' id='viewButton' onclick='viewPolicemanDetails(\"" + id + "\")'>View Info</button>";
+
+        });
+      }); 
+
+        function viewPolicemanDetails(id){
+          console.log(id);
+          console.log("Hola");
+          window.location.href = "viewPatient.html";
+         sessionStorage.setItem("id", id);
+        }
+
+
+    </script>
+</body>
+</html>
